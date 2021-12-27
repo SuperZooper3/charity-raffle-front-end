@@ -1,7 +1,6 @@
-import { useContractCall, useContractFunction, useEthers, useTokenBalance} from "@usedapp/core"
-import { formatUnits } from "@ethersproject/units"
+import { useContractCall, useContractFunction } from "@usedapp/core"
 import { Contract } from "@ethersproject/contracts";
-import { utils, constants} from "ethers"
+import { utils } from "ethers"
 import CharityRaffle from "../chain-info/contracts/CharityRaffle.json";
 import Stack from '@mui/material/Stack';
 import { Button, TextField, Alert } from "@mui/material";
@@ -14,10 +13,9 @@ export interface PurchaseTicketProps {
 }
 
 export const PurchaseTicket = ({id, CharityRaffleAddress}: PurchaseTicketProps) => {
-    const { account, chainId} = useEthers();
     const { abi } = CharityRaffle;
     const RaffleInterface = new utils.Interface( abi )
-    const [name,rawStartTime,rawEndTime,ticketCount, ticketPrice] = useContractCall(
+    const [,rawStartTime,rawEndTime,, ticketPrice] = useContractCall(
         {
             abi: RaffleInterface,
             address: CharityRaffleAddress,

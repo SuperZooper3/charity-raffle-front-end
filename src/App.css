@@ -23,10 +23,14 @@ h2 {
 }
 
 /* Make the background a diagonal fade from dark blue to silver */
-.App {
+html {
+  min-height:100%;
   background: linear-gradient(
-    to bottom,
-    rgb(17, 1, 112),
-    rgb(200, 229, 236)
-  ),
+    rgb(187, 185, 255),
+    rgb(63, 71, 173)
+  )
+}
+
+.App {
+  padding: 20px;
 }

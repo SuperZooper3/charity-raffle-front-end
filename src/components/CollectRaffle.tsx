@@ -1,12 +1,8 @@
-import { useContractCall, useContractFunction, useEthers, useTokenBalance} from "@usedapp/core"
-import { formatUnits } from "@ethersproject/units"
+import { useContractCall, useContractFunction, useEthers} from "@usedapp/core"
 import { Contract } from "@ethersproject/contracts";
-import { utils, constants} from "ethers"
+import { utils} from "ethers"
 import CharityRaffle from "../chain-info/contracts/CharityRaffle.json";
-import { Button, TextField, Alert, Stack } from "@mui/material";
-import { useState } from "react";
-import { send } from "process";
-
+import { Button, Alert, Stack } from "@mui/material";
 
 export interface CollectRaffleProps {
     id: number;
@@ -17,7 +13,7 @@ export const CollectRaffle = ({id, CharityRaffleAddress}: CollectRaffleProps) =>
     const { account } = useEthers()
     const { abi } = CharityRaffle;
     const RaffleInterface = new utils.Interface( abi )
-    const [name, ben, winner, startTime, endTime] = useContractCall(
+    const [, ben, winner,, endTime] = useContractCall(
         {
             abi: RaffleInterface,
             address: CharityRaffleAddress,
@@ -33,21 +29,30 @@ export const CollectRaffle = ({id, CharityRaffleAddress}: CollectRaffleProps) =>
             args: []
         }
         ) ?? []
-    const startDate = new Date(Number(startTime) * 1000)
+    const [,,,ticketCount,] = useContractCall(
+            {
+                abi: RaffleInterface,
+                address: CharityRaffleAddress,
+                method: "GetRaffleTicketInfo",
+                args: [id]
+            }
+            ) ?? []
     const endDate = new Date(Number(endTime) * 1000)
     const expirationDate = new Date(Number(endTime) * 1000 + Number(expirationPeriod) * 1000)
 
     const RaffleContract = new Contract(CharityRaffleAddress, abi)
-    const { state: collectState , send: collectSend } = useContractFunction(RaffleContract, "ClaimRaffle", {transactionName: "Purchase Tickets"})
+    const { state: collectState , send: collectSend} = useContractFunction(RaffleContract, "ClaimRaffle", {transactionName: "Purchase Tickets"})
     const handleCollect = () => {
         collectSend(id)
     }
     return (
         <div>
-        { ben != account ? (<Alert severity="error">You are not the beneficiary of this raffle</Alert>) : null}
+        { ben !== account ? (<Alert severity="error">You are not the beneficiary of this raffle</Alert>) : null}
         { ben === account && endDate > new Date()? (<Alert severity="error">The raffle has not ended!</Alert>) : null }
         { ben === account && expirationDate < new Date()?  (<Alert severity="error">The raffle has expired!</Alert>) : null }
-        { ben === account && endDate < new Date() && expirationDate > new Date() ? (
+        { ben === account && endDate < new Date() && Number(ticketCount) === 0 ? (<Alert severity="error">There are no tickets purchased!</Alert>) : null }
+        { ben === account && winner !== 0x0000000000000000000000000000000000000000 ? (<Alert severity="info">The raffle has already been claimed!</Alert>) : null }
+        { ben === account && endDate < new Date() && expirationDate > new Date() && winner === "0x0000000000000000000000000000000000000000" && ticketCount > 0 ? (
         <div>
             <Stack spacing={2} direction="row">
                 <Alert severity="success">The raffle has ended!</Alert>
