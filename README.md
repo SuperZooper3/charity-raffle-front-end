@@ -1,5 +1,6 @@
 # Charity Raffle Front-End
 This is a front-end for the Charity Raffle smart contract. https://github.com/SuperZooper3/CharityRaffle
+Live version at: https://eth-charity-raffle.herokuapp.com/. This is automaticaly updated at each push.
 
 ## Features
 ### Create Raffles
