@@ -12,8 +12,14 @@ export const Main = () => {
     return (
         <div>
             <h1>Charity Raffle</h1>
-            <p>Using contract {CharityRaffleAddress} on {chainId ? network : "disconnected"} network.</p>
-            { CharityRaffleAddress !== constants.AddressZero ? <InteractionMenu /> : <p>No CharityRaffle contract deployed on this network.</p> }
+            {chainId ? (
+                <p>Using contract {CharityRaffleAddress} on {chainId ? network : "disconnected"} network.</p>
+                
+            ) : (
+                <p>No network connected. Please click the <b>connect button</b> in the top right! Currently supported networks: Rinkeby.</p>
+            )}
+            { chainId && CharityRaffleAddress !== constants.AddressZero ? <InteractionMenu /> : null }
+            { chainId && CharityRaffleAddress === constants.AddressZero ? <p>No CharityRaffle contract deployed on this network.</p> : null }
         </div>
     ) 
 }

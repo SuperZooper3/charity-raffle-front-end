@@ -8,6 +8,7 @@ export interface RaffleInfoProps {
 }
 
 export const RaffleBasicInfo = ({id, CharityRaffleAddress}: RaffleInfoProps) => {
+    const { account } = useEthers()
     const { abi } = CharityRaffle;
     const RaffleInterface = new utils.Interface( abi )
     const [name, ben, winner, startTime, endTime] = useContractCall(
@@ -27,10 +28,10 @@ export const RaffleBasicInfo = ({id, CharityRaffleAddress}: RaffleInfoProps) => 
                 (ben !== constants.AddressZero) ? (
                     <div>
                         <p>Name: {name}</p>
-                        <p>Beneficiary: {ben}</p>
-                        <p>{winnerText}</p>
+                        <p>Beneficiary: {account === ben ? <b>{ben}</b> : ben}</p>
+                        <p>{winnerText === ben ? <b>{winnerText}</b> : winnerText}</p>
                         <p>Start date: {startDate.toLocaleString()}</p>
-                        <p>End date: {endDate.toLocaleString()}</p>
+                        <p className = {(Number(endTime) * 1000) <= Date.now() ? "red": ""}>End date: {endDate.toLocaleString()}</p>
                     </div>
                 ) : (
                     <p>No raffle with id {id}</p>

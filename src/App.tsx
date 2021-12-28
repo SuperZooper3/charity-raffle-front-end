@@ -1,5 +1,5 @@
 import './App.css';
-import { DAppProvider, Rinkeby} from '@usedapp/core';
+import { DAppProvider, Rinkeby } from '@usedapp/core';
 import { Header } from './components/Header';
 import { Main } from './components/Main';
 import { Box } from '@mui/material';

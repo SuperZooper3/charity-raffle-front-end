@@ -34,3 +34,11 @@ html {
 .App {
   padding: 20px;
 }
+
+b {
+  color: rgb(0, 10, 143);
+}
+
+.red {
+  color: rgb(202, 0, 0);
+}
