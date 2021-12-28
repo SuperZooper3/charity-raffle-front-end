@@ -59,10 +59,10 @@ export const PurchaseTicket = ({id, CharityRaffleAddress}: PurchaseTicketProps) 
     const RaffleContract = new Contract(CharityRaffleAddress, abi)
     const { state: purchaseState , send: purchaseSend } = useContractFunction(RaffleContract, "BuyTickets", {transactionName: "Purchase Tickets"})
     const { state: refundState , send: refundSend } = useContractFunction(RaffleContract, "TicketRefund", {transactionName: "Ticket Refund"})
-
+    
+    const sendValue = Math.ceil((purchaseTicketCount * Number(ticketPriceEth) * 10**18))
     // Ticket purchase logic
     const PurchaseTickets = () => {
-        const sendValue = Math.ceil((purchaseTicketCount * Number(ticketPriceEth) * 10**18))
         purchaseSend(id, BigInt(purchaseTicketCount), {value: BigInt(sendValue)})
     }
 
@@ -77,8 +77,8 @@ export const PurchaseTicket = ({id, CharityRaffleAddress}: PurchaseTicketProps) 
                 <div>
                     <Alert severity="success">Raffle is OPEN!</Alert> <br></br>
                     <Stack spacing={2} direction="row">
-                        <TextField id="purchase-ticket-count" label="Ticket Purchase" type="number" value={purchaseTicketCount} onChange={handleTCInputChange} InputLabelProps={{ shrink: true,}}/>
-                        <p>The price of {purchaseTicketCount} tickets is {purchaseTicketCount*Number(ticketPriceEth)} ETH.</p>
+                        <TextField id="purchase-ticket-count" label="Ticket Purchase" type="number" onChange={handleTCInputChange} InputLabelProps={{ shrink: true,}}/>
+                        <p>The price of {purchaseTicketCount} tickets is {sendValue*10**-18} ETH.</p>
                         <Button color="primary" variant="contained" disabled={purchaseTicketCount<= 0} onClick={PurchaseTickets}>Purchase {purchaseTicketCount} tickets!</Button>
                         {purchaseState.status === "Mining" ? <Alert severity="info">Purchase in progress...</Alert> : null}
                         {purchaseState.status === "Success" ? <Alert severity="success">Purchase successful!</Alert> : null}
