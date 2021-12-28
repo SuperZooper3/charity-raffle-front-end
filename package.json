@@ -19,14 +19,15 @@
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
     "typescript": "^4.5.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "yarn && yarn build"
+    "postinstall": "yarn build"
   },
   "eslintConfig": {
     "extends": [
