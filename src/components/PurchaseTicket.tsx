@@ -83,6 +83,7 @@ export const PurchaseTicket = ({id, CharityRaffleAddress}: PurchaseTicketProps) 
                         {purchaseState.status === "Mining" ? <Alert severity="info">Purchase in progress...</Alert> : null}
                         {purchaseState.status === "Success" ? <Alert severity="success">Purchase successful!</Alert> : null}
                         {purchaseState.status === "Fail" ? <Alert severity="error">Purchase failed!</Alert> : null}
+                        {purchaseState.status === "Exception" ? <Alert severity="error">{purchaseState.errorMessage}</Alert> : null}
                     </Stack>
                 </div>
             ) : (
