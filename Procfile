@@ -1,1 +1,1 @@
-web: cd build && yarn start
+web: yarn start
