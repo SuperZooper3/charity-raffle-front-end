@@ -20,7 +20,7 @@ export const RaffleBasicInfo = ({id, CharityRaffleAddress}: RaffleInfoProps) => 
         ) ?? []
     const startDate = new Date(Number(startTime) * 1000)
     const endDate = new Date(Number(endTime) * 1000)
-    const winnerText = winner !== 0x0000000000000000000000000000000000000000 ? `Winner: ${winner}` : "Winner: No winner yet"
+    const winnerText = winner !== "0x0000000000000000000000000000000000000000" ? `Winner: ${winner}` : "Winner: No winner yet"
     return (
         <div>
             {

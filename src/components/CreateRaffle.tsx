@@ -34,7 +34,7 @@ export const CreateRaffle = ({CharityRaffleAddress}: CreateRaffleProps) => {
             <TextField id="ticket-price" label="Ticket Price (ETH)" type="number" onChange={handleTicketPrice} InputLabelProps={{ shrink: true,}}/>
             <TextField id="raffle-length" label="Raffle Length (seconds)" type="number" onChange={handleRaffleLenght} InputLabelProps={{ shrink: true,}}/>
             {createState.status === "Mining" ? (<LinearProgress/>):
-            <Button color="primary" variant="contained" disabled={raffleName === "" || ticketPrice === 0 || raffleLenght === 0 } onClick={useCreateRaffle} >Create Raffle!</Button>}
+            <Button color="primary" variant="contained" disabled={raffleName === "" || ticketPrice <= 0 || raffleLenght <= 0 } onClick={useCreateRaffle} >Create Raffle!</Button>}
             {createState.status === "Mining" ? (<Alert severity="info">Mining...</Alert>) : null}
             {createState.status === "Success" ? (<Alert severity="success">Raffle Created! ID: {createdId}</Alert>) : null}
             {createState.status === "Fail" ? (<Alert severity="error">{createState.errorMessage}</Alert>) : null}

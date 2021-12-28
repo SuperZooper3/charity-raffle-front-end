@@ -63,3 +63,9 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+
+# useless chain info
+src/chain-info/contracts/dependencies/**
+src/chain-info/contracts/LinkToken.json
+src/chain-info/contracts/VRFCoordinatorMock.json
+src/chain-info/tests.json

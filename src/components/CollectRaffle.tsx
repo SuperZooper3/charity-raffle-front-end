@@ -49,9 +49,9 @@ export const CollectRaffle = ({id, CharityRaffleAddress}: CollectRaffleProps) =>
         <div>
         { ben !== account ? (<Alert severity="error">You are not the beneficiary of this raffle</Alert>) : null}
         { ben === account && endDate > new Date()? (<Alert severity="error">The raffle has not ended!</Alert>) : null }
-        { ben === account && expirationDate < new Date()?  (<Alert severity="error">The raffle has expired!</Alert>) : null }
+        { ben === account && expirationDate < new Date() &&  winner === "0x0000000000000000000000000000000000000000"?  (<Alert severity="error">The raffle has expired!</Alert>) : null }
         { ben === account && endDate < new Date() && Number(ticketCount) === 0 ? (<Alert severity="error">There are no tickets purchased!</Alert>) : null }
-        { ben === account && winner !== 0x0000000000000000000000000000000000000000 ? (<Alert severity="info">The raffle has already been claimed!</Alert>) : null }
+        { ben === account && winner !== "0x0000000000000000000000000000000000000000" ? (<Alert severity="info">The raffle has already been claimed!</Alert>) : null }
         { ben === account && endDate < new Date() && expirationDate > new Date() && winner === "0x0000000000000000000000000000000000000000" && ticketCount > 0 ? (
         <div>
             <Stack spacing={2} direction="row">
