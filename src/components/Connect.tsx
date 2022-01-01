@@ -9,7 +9,7 @@ export const Connect = () => {
     const isConnected = account !== undefined;
     const shortAddress = account?.substring(0, 6) + "..." + account?.substring(account?.length - 4);
     return (
-        <Stack spacing={2} direction="row">
+        <Stack spacing={2} direction="row-reverse">
             {isConnected ? (
                 <Button variant="outlined" onClick={deactivate}> Disconnect from {shortAddress}</Button>
             ) : (

@@ -78,7 +78,7 @@ export const PurchaseTicket = ({id, CharityRaffleAddress}: PurchaseTicketProps) 
                     <Alert severity="success">Raffle is OPEN!</Alert> <br></br>
                     <Stack spacing={2} direction="row">
                         <TextField id="purchase-ticket-count" label="Ticket Purchase" type="number" onChange={handleTCInputChange} InputLabelProps={{ shrink: true,}}/>
-                        <p>The price of {purchaseTicketCount} tickets is {sendValue*10**-18} ETH.</p>
+                        <p className="center-text">The price of {purchaseTicketCount} tickets is {Number(String(sendValue*10**-18).substring(0,4))} ETH.</p>
                         <Button color="primary" variant="contained" disabled={purchaseTicketCount<= 0} onClick={PurchaseTickets}>Purchase {purchaseTicketCount} tickets!</Button>
                         {purchaseState.status === "Mining" ? <Alert severity="info">Purchase in progress...</Alert> : null}
                         {purchaseState.status === "Success" ? <Alert severity="success">Purchase successful!</Alert> : null}
